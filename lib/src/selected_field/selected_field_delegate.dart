@@ -5,13 +5,17 @@ import 'selected_field_typedefs.dart';
 @protected
 abstract class SelectedFieldDelegate<T> {
   final String title;
+  final List<T> items;
   final WidgetItemBuilder<T> itemBuilder;
-  final OnItemSelectedCallback<T>? onSelected;
+  final ItemLabelParser<T> labelParser;
+  final T? selectedItem;
 
   SelectedFieldDelegate({
     required this.title,
+    required this.items,
     required this.itemBuilder,
-    this.onSelected,
+    required this.labelParser,
+    this.selectedItem,
   });
 }
 
@@ -19,8 +23,10 @@ abstract class SelectedFieldDelegate<T> {
 class SelectedFieldBuilderDelegate<T> extends SelectedFieldDelegate<T> {
   SelectedFieldBuilderDelegate({
     required super.title,
+    required super.items,
     required super.itemBuilder,
-    super.onSelected,
+    required super.labelParser,
+    super.selectedItem,
   });
 }
 
@@ -28,14 +34,12 @@ class SelectedFieldBuilderDelegate<T> extends SelectedFieldDelegate<T> {
 class SelectedFieldSimpleDelegate<T> extends SelectedFieldDelegate<T> {
   SelectedFieldSimpleDelegate({
     required super.title,
-    required ItemLabelParser<T> labelParser,
-    super.onSelected,
+    required super.items,
+    required super.labelParser,
+    super.selectedItem,
   }) : super(
           itemBuilder: (BuildContext context, T item) {
-            return ListTile(
-              onTap: () {},
-              title: Text(labelParser(item)),
-            );
+            return Text(labelParser(item));
           },
         );
 }

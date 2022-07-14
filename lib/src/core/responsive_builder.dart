@@ -5,22 +5,21 @@ typedef ResponsiveWidgetBuilder = Widget Function(
     BuildContext context, ScreenType screenType);
 
 enum ScreenType {
-  mobile(400),
-  tablet(600),
-  desktop(800);
+  mobile(300),
+  tablet(550),
+  desktop(950);
 
-  final double maxWidth;
+  final double minWidth;
 
-  const ScreenType(this.maxWidth);
+  const ScreenType(this.minWidth);
 }
 
 extension ResponsiveX on BuildContext {
   ScreenType get screenType {
-    final w = orientation == Orientation.portrait
-        ? screenSize.width
-        : screenSize.height;
-    return ScreenType.values.firstWhere(
-      (type) => w <= type.maxWidth,
+    final w = screenSize.shortestSide;
+
+    return ScreenType.values.lastWhere(
+      (type) => w >= type.minWidth,
       orElse: () => ScreenType.mobile,
     );
   }
@@ -65,21 +64,40 @@ class Responsive<T> {
 }
 
 class ResponsiveBuilder extends StatelessWidget {
-  const ResponsiveBuilder({
-    super.key,
+  final ResponsiveWidgetBuilder? builder;
+  final Widget? mobile;
+  final Widget? tablet;
+  final Widget? desktop;
+
+  const ResponsiveBuilder._({
+    Key? key,
     this.builder,
     this.mobile,
     this.tablet,
     this.desktop,
-  }) : assert(builder != null ||
-            mobile != null ||
-            tablet != null ||
-            desktop != null);
+  })  : assert(builder != null
+            ? true
+            : (mobile != null || tablet != null || desktop != null)),
+        super(key: key);
 
-  final ResponsiveWidgetBuilder? builder;
-  final WidgetBuilder? mobile;
-  final WidgetBuilder? tablet;
-  final WidgetBuilder? desktop;
+  factory ResponsiveBuilder({
+    Key? key,
+    required Widget mobile,
+    required Widget tablet,
+    Widget? desktop,
+  }) {
+    return ResponsiveBuilder._(
+      key: key,
+      mobile: mobile,
+      tablet: tablet,
+      desktop: desktop,
+    );
+  }
+
+  factory ResponsiveBuilder.custom(
+      {Key? key, required ResponsiveWidgetBuilder builder}) {
+    return ResponsiveBuilder._(key: key, builder: builder);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,16 +106,13 @@ class ResponsiveBuilder extends StatelessWidget {
       return builder!(context, screenType);
     }
 
-    WidgetBuilder? widget = Responsive<WidgetBuilder?>.when(
-      mobile: mobile,
-      tablet: tablet,
-      desktop: desktop,
-    ).resolve(context);
+    Widget? widget = Responsive<Widget?>.when(
+          mobile: mobile,
+          tablet: tablet,
+          desktop: desktop,
+        ).resolve(context) ??
+        tablet;
 
-    return widget?.call(context) ??
-        mobile?.call(context) ??
-        tablet?.call(context) ??
-        desktop?.call(context) ??
-        const SizedBox();
+    return widget ?? const SizedBox();
   }
 }
