@@ -10,4 +10,10 @@ extension ContextX on BuildContext {
   Size get screenSize => mediaQuery.size;
 
   Orientation get orientation => mediaQuery.orientation;
+
+  ThemeData get theme => Theme.of(this);
+
+  ColorScheme get colorScheme => theme.colorScheme;
+
+  TextTheme get textTheme => theme.textTheme;
 }
