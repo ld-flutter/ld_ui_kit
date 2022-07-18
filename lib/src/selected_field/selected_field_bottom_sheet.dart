@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:ld_ui_kit/ld_ui_kit.dart';
-import 'package:ld_ui_kit/src/selected_field/selected_field_typedefs.dart';
-
-import 'selected_field_delegate.dart';
+part of ld_ui_kit;
 
 Future<void> showSelectedBottomSheet<T>(
   BuildContext context,
