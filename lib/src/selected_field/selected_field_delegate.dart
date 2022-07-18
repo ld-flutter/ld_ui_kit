@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-import 'selected_field_typedefs.dart';
+part of ld_ui_kit;
 
 @protected
 abstract class SelectedFieldDelegate<T> {
@@ -19,7 +17,6 @@ abstract class SelectedFieldDelegate<T> {
   });
 }
 
-@protected
 class SelectedFieldBuilderDelegate<T> extends SelectedFieldDelegate<T> {
   SelectedFieldBuilderDelegate({
     required super.title,
@@ -30,7 +27,6 @@ class SelectedFieldBuilderDelegate<T> extends SelectedFieldDelegate<T> {
   });
 }
 
-@protected
 class SelectedFieldSimpleDelegate<T> extends SelectedFieldDelegate<T> {
   SelectedFieldSimpleDelegate({
     required super.title,
