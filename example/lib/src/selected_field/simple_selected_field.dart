@@ -2,7 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:ld_ui_kit/ld_ui_kit.dart';
 
 class SimpleSelectedField extends StatefulWidget {
-  const SimpleSelectedField({super.key});
+  const SimpleSelectedField({
+    super.key,
+    required this.title,
+    this.showSubtitle = false,
+    this.icon,
+  });
+
+  final String title;
+  final bool showSubtitle;
+  final Widget? icon;
 
   @override
   State<SimpleSelectedField> createState() => _SimpleSelectedFieldState();
@@ -16,10 +25,14 @@ class _SimpleSelectedFieldState extends State<SimpleSelectedField> {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: SelectedField<String>(
-        title: 'item'.capitalize(),
-        items: List.generate(10, (index) => 'Item $index'),
+        title: widget.title,
+        items: List.generate(20, (index) => 'Item $index'),
         selectedItem: _selectedItem,
         labelParser: (item) => item,
+        subtitleParser:
+            widget.showSubtitle ? (item) => 'Description $item' : null,
+        leading: widget.icon,
+        trailing: widget.icon,
         onSelected: (item) => setState(() => _selectedItem = item),
       ),
     );

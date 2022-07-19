@@ -10,3 +10,6 @@ typedef WidgetItemBuilder<T> = Widget Function(BuildContext context, T item);
 
 @protected
 typedef ItemLabelParser<T> = String Function(T item);
+
+@protected
+typedef OnFilterTextChanged<T> = bool Function(T item, String filterText);

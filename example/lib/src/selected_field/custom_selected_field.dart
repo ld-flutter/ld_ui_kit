@@ -19,19 +19,36 @@ class _CustomSelectedFieldState extends State<CustomSelectedField> {
       padding: const EdgeInsets.all(16.0),
       child: SelectedField<String>.custom(
         title: widget.title,
-        items: List.generate(10, (index) => 'Item $index'),
+        items: List.generate(20, (index) => 'Item $index'),
         selectedItem: _selectedItem,
         labelParser: (item) => item,
         onSelected: (item) => setState(() => _selectedItem = item),
+        showFilterField: true,
+        onFilterTextChanged: (item, query) => item.deepContains(query),
         itemBuilder: (BuildContext context, String item) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          return Row(
             children: [
-              Text(item),
-              Text(
-                'Description $item',
-                style: const TextStyle(fontSize: 12),
+              const Icon(Icons.person_pin),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(item),
+                    Text(
+                      'Description $item',
+                      style: const TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 16),
+              Checkbox(
+                checkColor: context.colorScheme.primary,
+                activeColor: context.colorScheme.onPrimary,
+                value: _selectedItem == item,
+                onChanged: (value) {},
               ),
             ],
           );

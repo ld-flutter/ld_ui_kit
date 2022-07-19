@@ -12,6 +12,42 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'UI Kit Example',
+      theme: ThemeData(
+        brightness: Brightness.light,
+        colorSchemeSeed: Colors.blue,
+        useMaterial3: true,
+      ),
+      home: Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              SimpleSelectedField(title: 'Simple'),
+              SimpleSelectedField(
+                title: 'Simple with subtitle',
+                showSubtitle: true,
+              ),
+              SimpleSelectedField(
+                icon: Icon(Icons.ac_unit),
+                title: 'Simple with subtitle, icons',
+                showSubtitle: true,
+              ),
+              CustomSelectedField(title: 'Custom'),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class WidgetbookApp extends StatelessWidget {
+  const WidgetbookApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return Widgetbook.material(
       appInfo: AppInfo(name: 'UI Kit Example'),
       themes: [
@@ -41,7 +77,8 @@ class MyApp extends StatelessWidget {
               useCases: [
                 WidgetbookUseCase(
                   name: 'Simple',
-                  builder: (context) => const SimpleSelectedField(),
+                  builder: (context) =>
+                      const SimpleSelectedField(title: 'Simple item layout'),
                 ),
                 WidgetbookUseCase(
                   name: 'Custom item layout',

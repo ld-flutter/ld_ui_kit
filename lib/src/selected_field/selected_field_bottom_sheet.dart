@@ -19,7 +19,7 @@ Future<void> showSelectedBottomSheet<T>(
   );
 }
 
-class SelectedBottomSheet<T> extends StatelessWidget {
+class SelectedBottomSheet<T> extends StatefulWidget {
   const SelectedBottomSheet({
     super.key,
     required this.delegate,
@@ -30,7 +30,15 @@ class SelectedBottomSheet<T> extends StatelessWidget {
   final OnItemSelectedCallback<T>? onSelected;
 
   @override
+  State<SelectedBottomSheet<T>> createState() => _SelectedBottomSheetState<T>();
+}
+
+class _SelectedBottomSheetState<T> extends State<SelectedBottomSheet<T>> {
+  String _filterText = '';
+
+  @override
   Widget build(BuildContext context) {
+    final currentItems = widget.delegate.filterData(_filterText);
     return Card(
       shape: kDefaultBorderShape,
       color: context.colorScheme.surface,
@@ -52,10 +60,22 @@ class SelectedBottomSheet<T> extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Select ${delegate.title}',
+                  'Select ${widget.delegate.title}',
                   style: context.textTheme.titleLarge,
                 ),
               ],
+            ),
+            Visibility(
+              visible: widget.delegate.showFilterField,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  decoration: const InputDecoration(
+                    labelText: 'Filter',
+                  ),
+                  onChanged: (text) => setState(() => _filterText = text),
+                ),
+              ),
             ),
             Expanded(
               child: Scrollbar(
@@ -64,14 +84,14 @@ class SelectedBottomSheet<T> extends StatelessWidget {
                 thickness: 2,
                 child: ListView.builder(
                   physics: const ClampingScrollPhysics(),
-                  itemCount: delegate.items.length,
+                  itemCount: currentItems.length,
                   itemBuilder: (context, index) {
-                    final item = delegate.items[index];
-                    final isSelected = item == delegate.selectedItem;
+                    final item = currentItems[index];
+                    final isSelected = item == widget.delegate.selectedItem;
                     return InkWell(
                       onTap: () {
                         Navigator.pop(context);
-                        onSelected?.call(item);
+                        widget.onSelected?.call(item);
                       },
                       borderRadius: kDefaultBorderRadius,
                       child: DecoratedBox(
@@ -83,13 +103,20 @@ class SelectedBottomSheet<T> extends StatelessWidget {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(16),
-                          child: DefaultTextStyle(
-                            style: TextStyle(
+                          child: IconTheme(
+                            data: IconThemeData(
                               color: isSelected
                                   ? context.colorScheme.onPrimary
                                   : context.colorScheme.onSurface,
                             ),
-                            child: delegate.itemBuilder(context, item),
+                            child: DefaultTextStyle(
+                              style: TextStyle(
+                                color: isSelected
+                                    ? context.colorScheme.onPrimary
+                                    : context.colorScheme.onSurface,
+                              ),
+                              child: widget.delegate.itemBuilder(context, item),
+                            ),
                           ),
                         ),
                       ),

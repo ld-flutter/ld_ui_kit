@@ -16,15 +16,25 @@ class SelectedField<T> extends StatefulWidget {
     required String title,
     required List<T> items,
     required ItemLabelParser<T> labelParser,
+    ItemLabelParser<T>? subtitleParser,
+    Widget? leading,
+    Widget? trailing,
     required T? selectedItem,
     OnItemSelectedCallback<T>? onSelected,
+    bool showFilterField = false,
+    OnFilterTextChanged<T>? onFilterTextChanged,
   }) {
     return SelectedField._(
       delegate: SelectedFieldSimpleDelegate<T>(
         title: title,
         items: items,
         labelParser: labelParser,
+        subtitleParser: subtitleParser,
+        leading: leading,
+        trailing: trailing,
         selectedItem: selectedItem,
+        showFilterField: showFilterField,
+        onFilterTextChanged: onFilterTextChanged,
       ),
       onSelected: onSelected,
     );
@@ -37,6 +47,8 @@ class SelectedField<T> extends StatefulWidget {
     required ItemLabelParser<T> labelParser,
     required T? selectedItem,
     OnItemSelectedCallback<T>? onSelected,
+    bool showFilterField = false,
+    OnFilterTextChanged<T>? onFilterTextChanged,
   }) {
     return SelectedField._(
       delegate: SelectedFieldBuilderDelegate<T>(
@@ -45,6 +57,8 @@ class SelectedField<T> extends StatefulWidget {
         itemBuilder: itemBuilder,
         labelParser: labelParser,
         selectedItem: selectedItem,
+        showFilterField: showFilterField,
+        onFilterTextChanged: onFilterTextChanged,
       ),
       onSelected: onSelected,
     );

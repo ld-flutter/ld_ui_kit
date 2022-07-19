@@ -6,6 +6,8 @@ abstract class SelectedFieldDelegate<T> {
   final List<T> items;
   final WidgetItemBuilder<T> itemBuilder;
   final ItemLabelParser<T> labelParser;
+  final bool showFilterField;
+  final OnFilterTextChanged<T>? onFilterTextChanged;
   final T? selectedItem;
 
   SelectedFieldDelegate({
@@ -13,8 +15,19 @@ abstract class SelectedFieldDelegate<T> {
     required this.items,
     required this.itemBuilder,
     required this.labelParser,
+    this.showFilterField = false,
     this.selectedItem,
-  });
+    this.onFilterTextChanged,
+  }) : assert(!showFilterField ||
+            (showFilterField && onFilterTextChanged != null));
+
+  List<T> filterData(String query) {
+    return query.isEmpty
+        ? items
+        : items
+            .where((e) => onFilterTextChanged?.call(e, query) ?? false)
+            .toList();
+  }
 }
 
 class SelectedFieldBuilderDelegate<T> extends SelectedFieldDelegate<T> {
@@ -24,6 +37,8 @@ class SelectedFieldBuilderDelegate<T> extends SelectedFieldDelegate<T> {
     required super.itemBuilder,
     required super.labelParser,
     super.selectedItem,
+    super.showFilterField,
+    super.onFilterTextChanged,
   });
 }
 
@@ -32,10 +47,41 @@ class SelectedFieldSimpleDelegate<T> extends SelectedFieldDelegate<T> {
     required super.title,
     required super.items,
     required super.labelParser,
+    ItemLabelParser<T>? subtitleParser,
+    Widget? leading,
+    Widget? trailing,
     super.selectedItem,
+    super.showFilterField,
+    super.onFilterTextChanged,
   }) : super(
           itemBuilder: (BuildContext context, T item) {
-            return Text(labelParser(item));
+            Widget content;
+            if (subtitleParser == null) {
+              content = Text(labelParser(item));
+            } else {
+              content = Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(labelParser(item)),
+                  Text(
+                    subtitleParser(item),
+                    style: const TextStyle(fontSize: 12),
+                  ),
+                ],
+              );
+            }
+            return Row(children: [
+              if (leading != null) ...[
+                leading,
+                const SizedBox(width: 16),
+              ],
+              Expanded(child: content),
+              if (trailing != null) ...[
+                const SizedBox(width: 16),
+                trailing,
+              ],
+            ]);
           },
         );
 }
