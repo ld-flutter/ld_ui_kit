@@ -102,8 +102,10 @@ class _SelectedFieldState<T> extends State<SelectedField<T>> {
     return TextField(
       readOnly: true,
       controller: _tecSelectedItem,
+      enabled: widget._delegate.items.isNotEmpty,
       decoration: InputDecoration(
         labelText: widget._delegate.title,
+        suffixIcon: const Icon(Icons.arrow_drop_down_rounded),
       ),
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());

@@ -1,3 +1,11 @@
+## 0.1.2
+
+- Add suffix, disable when data empty
+
+## 0.1.1+1
+
+- Update changelog.md
+
 ## 0.1.1
 
 - Refactor BuildContext utils
