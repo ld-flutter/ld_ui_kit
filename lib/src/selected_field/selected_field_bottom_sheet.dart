@@ -10,7 +10,7 @@ Future<void> showSelectedBottomSheet<T>(
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
     constraints: BoxConstraints(
-      maxHeight: context.screenSize.height * .6,
+      maxHeight: context.getScreenSize().height * .6,
     ),
     builder: (_) => SelectedBottomSheet(
       delegate: delegate,
@@ -39,9 +39,11 @@ class _SelectedBottomSheetState<T> extends State<SelectedBottomSheet<T>> {
   @override
   Widget build(BuildContext context) {
     final currentItems = widget.delegate.filterData(_filterText);
+    final colorScheme = context.getColorScheme();
+    final textTheme = context.getTextTheme();
     return Card(
       shape: kDefaultBorderShape,
-      color: context.colorScheme.surface,
+      color: colorScheme.surface,
       margin: getDefaultPadding(context),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -61,7 +63,7 @@ class _SelectedBottomSheetState<T> extends State<SelectedBottomSheet<T>> {
                 ),
                 Text(
                   'Select ${widget.delegate.title}',
-                  style: context.textTheme.titleLarge,
+                  style: textTheme.titleLarge,
                 ),
               ],
             ),
@@ -97,7 +99,7 @@ class _SelectedBottomSheetState<T> extends State<SelectedBottomSheet<T>> {
                       child: DecoratedBox(
                         decoration: BoxDecoration(
                           color: isSelected
-                              ? context.colorScheme.primary
+                              ? colorScheme.primary
                               : Colors.transparent,
                           borderRadius: kDefaultBorderRadius,
                         ),
@@ -106,14 +108,14 @@ class _SelectedBottomSheetState<T> extends State<SelectedBottomSheet<T>> {
                           child: IconTheme(
                             data: IconThemeData(
                               color: isSelected
-                                  ? context.colorScheme.onPrimary
-                                  : context.colorScheme.onSurface,
+                                  ? colorScheme.onPrimary
+                                  : colorScheme.onSurface,
                             ),
                             child: DefaultTextStyle(
                               style: TextStyle(
                                 color: isSelected
-                                    ? context.colorScheme.onPrimary
-                                    : context.colorScheme.onSurface,
+                                    ? colorScheme.onPrimary
+                                    : colorScheme.onSurface,
                               ),
                               child: widget.delegate.itemBuilder(context, item),
                             ),

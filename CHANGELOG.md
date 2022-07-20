@@ -17,3 +17,7 @@
 ## 0.1.0
 
 - Fix selected field minor issues
+
+## 0.1.1
+
+- Refactor BuildContext utils

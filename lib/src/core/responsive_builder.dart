@@ -16,7 +16,7 @@ enum ScreenType {
 
 extension ResponsiveX on BuildContext {
   ScreenType get screenType {
-    final w = screenSize.shortestSide;
+    final w = getScreenSize().shortestSide;
 
     return ScreenType.values.lastWhere(
       (type) => w >= type.minWidth,

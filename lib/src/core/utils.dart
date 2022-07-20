@@ -10,15 +10,15 @@ extension StringX on String {
 }
 
 extension ContextX on BuildContext {
-  MediaQueryData get mediaQuery => MediaQuery.of(this);
+  MediaQueryData getMediaQuery() => MediaQuery.of(this);
 
-  Size get screenSize => mediaQuery.size;
+  Size getScreenSize() => getMediaQuery().size;
 
-  Orientation get orientation => mediaQuery.orientation;
+  Orientation getOrientation() => getMediaQuery().orientation;
 
-  ThemeData get theme => Theme.of(this);
+  ThemeData getTheme() => Theme.of(this);
 
-  ColorScheme get colorScheme => theme.colorScheme;
+  ColorScheme getColorScheme() => getTheme().colorScheme;
 
-  TextTheme get textTheme => theme.textTheme;
+  TextTheme getTextTheme() => getTheme().textTheme;
 }

@@ -15,6 +15,7 @@ class _CustomSelectedFieldState extends State<CustomSelectedField> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = context.getColorScheme();
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: SelectedField<String>.custom(
@@ -45,8 +46,8 @@ class _CustomSelectedFieldState extends State<CustomSelectedField> {
               ),
               const SizedBox(width: 16),
               Checkbox(
-                checkColor: context.colorScheme.primary,
-                activeColor: context.colorScheme.onPrimary,
+                checkColor: colorScheme.primary,
+                activeColor: colorScheme.onPrimary,
                 value: _selectedItem == item,
                 onChanged: (value) {},
               ),
