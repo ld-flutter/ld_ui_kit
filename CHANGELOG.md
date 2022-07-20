@@ -13,3 +13,7 @@
 ## 0.0.2
 
 - Upgrade custom selected field
+
+## 0.1.0
+
+- Fix selected field minor issues

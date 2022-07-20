@@ -10,8 +10,16 @@ EdgeInsets getDefaultPadding(BuildContext context) => EdgeInsets.all(
       ).resolve(context),
     );
 
-const kDefaultRadiusValue = 28.0;
-const kDefaultRadius = Radius.circular(kDefaultRadiusValue);
+/// Radius
+const kDefaultRadius = Radius.circular(28.0);
+const kRadius16 = Radius.circular(16.0);
+
+/// Border radius
 const kDefaultBorderRadius = BorderRadius.all(kDefaultRadius);
+const kBorderRadius16 = BorderRadius.all(kRadius16);
+
+/// Border shape
 const kDefaultBorderShape =
     RoundedRectangleBorder(borderRadius: kDefaultBorderRadius);
+const kRoundedBorderShape16 =
+    RoundedRectangleBorder(borderRadius: kBorderRadius16);

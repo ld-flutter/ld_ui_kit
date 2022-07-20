@@ -3,6 +3,8 @@ import 'package:example/src/selected_field/simple_selected_field.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 
+import 'src/progress_button/progress_button_widget.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -35,6 +37,7 @@ class MyApp extends StatelessWidget {
                 showSubtitle: true,
               ),
               CustomSelectedField(title: 'Custom'),
+              ProgressButtonWidget(),
             ],
           ),
         ),

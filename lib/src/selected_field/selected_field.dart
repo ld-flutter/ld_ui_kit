@@ -107,11 +107,13 @@ class _SelectedFieldState<T> extends State<SelectedField<T>> {
       ),
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
-        showSelectedBottomSheet<T>(
-          context,
-          widget._delegate,
-          onSelected: widget._onSelected,
-        );
+        if (widget._delegate.items.isNotEmpty) {
+          showSelectedBottomSheet<T>(
+            context,
+            widget._delegate,
+            onSelected: widget._onSelected,
+          );
+        }
       },
     );
   }
