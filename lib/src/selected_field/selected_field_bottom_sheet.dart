@@ -49,21 +49,19 @@ class _SelectedBottomSheetState<T> extends State<SelectedBottomSheet<T>> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Stack(
-              alignment: Alignment.center,
+            Row(
               children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.arrow_back_ios_new_rounded),
-                  ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.arrow_back_ios_new_rounded),
                 ),
-                Text(
-                  'Select ${widget.delegate.title}',
-                  style: textTheme.titleLarge,
+                Expanded(
+                  child: Text(
+                    'Select ${widget.delegate.title}',
+                    style: textTheme.titleMedium,
+                  ),
                 ),
               ],
             ),

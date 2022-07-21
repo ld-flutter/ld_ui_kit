@@ -1,3 +1,7 @@
+## 0.1.3
+
+- Resize Selected Bottom Sheet title text 
+
 ## 0.1.2
 
 - Add suffix, disable when data empty
