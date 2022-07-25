@@ -24,7 +24,6 @@ class _CustomSelectedFieldState extends State<CustomSelectedField> {
         selectedItem: _selectedItem,
         labelParser: (item) => item,
         onSelected: (item) => setState(() => _selectedItem = item),
-        showFilterField: true,
         onFilterTextChanged: (item, query) => item.deepContains(query),
         itemBuilder: (BuildContext context, String item) {
           return Row(

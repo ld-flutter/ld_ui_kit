@@ -1,5 +1,9 @@
 ## 0.1.3
 
+- Remove unused codes
+
+## 0.1.3
+
 - Resize Selected Bottom Sheet title text 
 
 ## 0.1.2

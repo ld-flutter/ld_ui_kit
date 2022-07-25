@@ -21,7 +21,6 @@ class SelectedField<T> extends StatefulWidget {
     Widget? trailing,
     required T? selectedItem,
     OnItemSelectedCallback<T>? onSelected,
-    bool showFilterField = false,
     OnFilterTextChanged<T>? onFilterTextChanged,
   }) {
     return SelectedField._(
@@ -33,7 +32,6 @@ class SelectedField<T> extends StatefulWidget {
         leading: leading,
         trailing: trailing,
         selectedItem: selectedItem,
-        showFilterField: showFilterField,
         onFilterTextChanged: onFilterTextChanged,
       ),
       onSelected: onSelected,
@@ -47,7 +45,6 @@ class SelectedField<T> extends StatefulWidget {
     required ItemLabelParser<T> labelParser,
     required T? selectedItem,
     OnItemSelectedCallback<T>? onSelected,
-    bool showFilterField = false,
     OnFilterTextChanged<T>? onFilterTextChanged,
   }) {
     return SelectedField._(
@@ -57,7 +54,6 @@ class SelectedField<T> extends StatefulWidget {
         itemBuilder: itemBuilder,
         labelParser: labelParser,
         selectedItem: selectedItem,
-        showFilterField: showFilterField,
         onFilterTextChanged: onFilterTextChanged,
       ),
       onSelected: onSelected,

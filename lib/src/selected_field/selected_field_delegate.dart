@@ -6,7 +6,6 @@ abstract class SelectedFieldDelegate<T> {
   final List<T> items;
   final WidgetItemBuilder<T> itemBuilder;
   final ItemLabelParser<T> labelParser;
-  final bool showFilterField;
   final OnFilterTextChanged<T>? onFilterTextChanged;
   final T? selectedItem;
 
@@ -15,11 +14,9 @@ abstract class SelectedFieldDelegate<T> {
     required this.items,
     required this.itemBuilder,
     required this.labelParser,
-    this.showFilterField = false,
     this.selectedItem,
     this.onFilterTextChanged,
-  }) : assert(!showFilterField ||
-            (showFilterField && onFilterTextChanged != null));
+  });
 
   List<T> filterData(String query) {
     return query.isEmpty
@@ -37,7 +34,6 @@ class SelectedFieldBuilderDelegate<T> extends SelectedFieldDelegate<T> {
     required super.itemBuilder,
     required super.labelParser,
     super.selectedItem,
-    super.showFilterField,
     super.onFilterTextChanged,
   });
 }
@@ -51,7 +47,6 @@ class SelectedFieldSimpleDelegate<T> extends SelectedFieldDelegate<T> {
     Widget? leading,
     Widget? trailing,
     super.selectedItem,
-    super.showFilterField,
     super.onFilterTextChanged,
   }) : super(
           itemBuilder: (BuildContext context, T item) {

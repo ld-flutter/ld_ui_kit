@@ -66,7 +66,7 @@ class _SelectedBottomSheetState<T> extends State<SelectedBottomSheet<T>> {
               ],
             ),
             Visibility(
-              visible: widget.delegate.showFilterField,
+              visible: widget.delegate.onFilterTextChanged != null,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
