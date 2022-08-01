@@ -1,3 +1,8 @@
+## 0.1.5
+
+- Fix show keyboard issue
+- Shrinkwrap list data
+
 ## 0.1.4
 
 - Remove unused codes
