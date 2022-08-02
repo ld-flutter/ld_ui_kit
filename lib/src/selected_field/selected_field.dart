@@ -6,17 +6,21 @@ class SelectedField<T> extends StatefulWidget {
     required SelectedFieldDelegate<T> delegate,
     T? selectedItem,
     OnItemSelectedCallback<T>? onSelected,
+    Widget? prefixIcon,
   })  : _delegate = delegate,
+        _prefixIcon = prefixIcon,
         _onSelected = onSelected;
 
   final SelectedFieldDelegate<T> _delegate;
   final OnItemSelectedCallback<T>? _onSelected;
+  final Widget? _prefixIcon;
 
   factory SelectedField({
     required String title,
     required List<T> items,
     required ItemLabelParser<T> labelParser,
     ItemLabelParser<T>? subtitleParser,
+    Widget? prefixIcon,
     Widget? leading,
     Widget? trailing,
     required T? selectedItem,
@@ -35,6 +39,7 @@ class SelectedField<T> extends StatefulWidget {
         onFilterTextChanged: onFilterTextChanged,
       ),
       onSelected: onSelected,
+      prefixIcon: prefixIcon,
     );
   }
 
@@ -44,6 +49,7 @@ class SelectedField<T> extends StatefulWidget {
     required WidgetItemBuilder<T> itemBuilder,
     required ItemLabelParser<T> labelParser,
     required T? selectedItem,
+    Widget? prefixIcon,
     OnItemSelectedCallback<T>? onSelected,
     OnFilterTextChanged<T>? onFilterTextChanged,
   }) {
@@ -57,6 +63,7 @@ class SelectedField<T> extends StatefulWidget {
         onFilterTextChanged: onFilterTextChanged,
       ),
       onSelected: onSelected,
+      prefixIcon: prefixIcon,
     );
   }
 
@@ -102,6 +109,7 @@ class _SelectedFieldState<T> extends State<SelectedField<T>> {
       decoration: InputDecoration(
         labelText: widget._delegate.title,
         suffixIcon: const Icon(Icons.arrow_drop_down_rounded),
+        prefixIcon: widget._prefixIcon,
       ),
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());

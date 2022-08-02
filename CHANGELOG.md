@@ -1,3 +1,7 @@
+## 0.1.6
+
+- Add prefix icon for field
+
 ## 0.1.5
 
 - Fix show keyboard issue
