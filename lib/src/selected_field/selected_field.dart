@@ -7,13 +7,16 @@ class SelectedField<T> extends StatefulWidget {
     T? selectedItem,
     OnItemSelectedCallback<T>? onSelected,
     Widget? prefixIcon,
+    FormFieldValidator<String>? validator,
   })  : _delegate = delegate,
         _prefixIcon = prefixIcon,
-        _onSelected = onSelected;
+        _onSelected = onSelected,
+        _validator = validator;
 
   final SelectedFieldDelegate<T> _delegate;
   final OnItemSelectedCallback<T>? _onSelected;
   final Widget? _prefixIcon;
+  final FormFieldValidator<String>? _validator;
 
   factory SelectedField({
     required String title,
@@ -26,6 +29,7 @@ class SelectedField<T> extends StatefulWidget {
     required T? selectedItem,
     OnItemSelectedCallback<T>? onSelected,
     OnFilterTextChanged<T>? onFilterTextChanged,
+    FormFieldValidator<String>? validator,
   }) {
     return SelectedField._(
       delegate: SelectedFieldSimpleDelegate<T>(
@@ -40,6 +44,7 @@ class SelectedField<T> extends StatefulWidget {
       ),
       onSelected: onSelected,
       prefixIcon: prefixIcon,
+      validator: validator,
     );
   }
 
@@ -52,6 +57,7 @@ class SelectedField<T> extends StatefulWidget {
     Widget? prefixIcon,
     OnItemSelectedCallback<T>? onSelected,
     OnFilterTextChanged<T>? onFilterTextChanged,
+    FormFieldValidator<String>? validator,
   }) {
     return SelectedField._(
       delegate: SelectedFieldBuilderDelegate<T>(
@@ -64,6 +70,7 @@ class SelectedField<T> extends StatefulWidget {
       ),
       onSelected: onSelected,
       prefixIcon: prefixIcon,
+      validator: validator,
     );
   }
 
@@ -102,10 +109,11 @@ class _SelectedFieldState<T> extends State<SelectedField<T>> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       readOnly: true,
       controller: _tecSelectedItem,
       enabled: widget._delegate.items.isNotEmpty,
+      validator: widget._validator,
       decoration: InputDecoration(
         labelText: widget._delegate.title,
         suffixIcon: const Icon(Icons.arrow_drop_down_rounded),

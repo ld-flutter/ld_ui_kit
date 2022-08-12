@@ -1,3 +1,7 @@
+## 0.1.7
+
+- Add validator
+
 ## 0.1.6
 
 - Add prefix icon for field
